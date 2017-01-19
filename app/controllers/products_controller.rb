@@ -5,4 +5,5 @@ class ProductsController < ApplicationController
     render "products.html.erb"
   end
 
+
 end
