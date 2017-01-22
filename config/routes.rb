@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  get "/products" => "products#get_products"
+  get "/products" => "products#index"
+
+  get "/products/:id" => "products#show"
 
   get "/littlebee" => "products#get_little_bee"
 
