@@ -1,15 +1,21 @@
 <div class="container">
 
-<h2>All Products:</h2>
+ <h2>All Books</h2>
 
-<% @products.each do |product| %>
+  <% @products.each_slice(3) do |three_products| %>
+    <div class="row">
+      <% three_products.each do |product| %>
+        <div class="col-md-4 col-sm-4">
+          <div class="well">
+            <img src= <%= product.image %> style="width:225px;height:350px";> <br><br>
+            <a href="/products/<%= product.id %>"><%= product.name %></a>
+            <p><%= product.description %></p>    
+            <p><%= product.price %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
-<p><%= product.name %> <%= product.description %></p>
-<p><%= product.price %></p>
-<img src= <%= product.image %> style="width:150px;height:225px;">
-
-<% end %>
-
-<a href="localhost:3000/littlebee" button class="btn btn-primary">Buy</button>
 
 </div>
