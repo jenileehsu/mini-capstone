@@ -23,6 +23,7 @@
      <br><br>
    <% end %>
 
+<% if current_user %>
   <%= form_tag '/carted_products', method: :post do  %>
     <div>
       <label for="quantity">Quantity</label>
@@ -32,11 +33,12 @@
     <%= hidden_field_tag :product_id, @product.id %>
 
     <input type="submit" value="Add to Cart">
-
   <% end %>
+<% end %>
+  
   <br>
 
-<% if current_user && current_user.admin %>
+<% if is_admin? %>
   <%= form_tag "/products/#{@product.id}", method: :delete do %>
     <input type="submit" value="Delete Book">
   <% end %>

@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 
+  before_action :authenticate_admin!, except: [:index, :show, :search]
+
 # code for 7 dwarves goes here (best practice)
 
   def index
@@ -32,9 +34,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    unless current_user && current_user.admin
-      redirect_to "/products"
-    end
+  
   end
 
   def create
@@ -64,7 +64,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    unless current_user && current_user.admin
+    unless is_admin?
       product_id = params[:id]
       @product = Product.find_by(id: product_id)
       @product.update(name: params[:name], description: params[:description], price: params[:price], image: params[:image])
@@ -74,7 +74,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    unless current_user && current_user.admin
+    unless is_admin?
       product_id = params[:id]
       @product = Product.find_by(id: product_id)
       @product.destroy
