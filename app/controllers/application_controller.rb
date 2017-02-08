@@ -20,17 +20,17 @@ class ApplicationController < ActionController::Base
       redirect_to "/products"
   end
 
-    before_action :calculate_cart_count
+  # before_action :calculate_cart_count
 
-    private
+  # private
 
-      def calculate_cart_count
-        if current_user
-          @cart_count = current_user.carted_products.where(status: "carted").count
-        else
-          @cart_count = 0
-        end
+    def calculate_cart_count
+      if current_user
+        @cart_count = current_user.carted_products.where(status: "carted").count
+      else
+        @cart_count = 0
       end
     end
+  end
 
 end

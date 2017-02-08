@@ -1,4 +1,17 @@
 <div class="container">
+
+  <% if @product && @product.errors.any? %>
+    <div id="error_explanation">
+    <p><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved: </p>
+
+    <ul>
+    <% @product.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+    </div>
+  <% end %>
+  
  <h1>Add New Book:</h1>
  <%= form_tag "/products", method: :post do %>
     <form class="form-horizontal">
