@@ -1,4 +1,11 @@
 class Product < ApplicationRecord
+  
+  belongs_to :supplier, optional: true
+  has_many :images
+  has_many :categorized_products
+  has_many :categories, through: :categorized_products
+
+  has_many :carted_products
 
   def sale_message 
     if price.to_f <= 2

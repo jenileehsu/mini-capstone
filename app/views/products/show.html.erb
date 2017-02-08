@@ -1,7 +1,15 @@
 <div class="container">
 
   <p>Title: <%= @product.name %></p>
+
+  <span><p>Supplied by: <%= @supplier.name %></p></span>
+
   <p>Author: <%= @product.description %></p>
+  <p>Genre:
+    <% @product.categories.each do |category| %>
+      <p><%= category.name %></p>
+    <% end %>
+  </p>
 
   <p>Price: <%= number_to_currency(@product.price.to_f) %></p>
   <p>Tax: <%= number_to_currency(@product.tax) %> </p>
@@ -9,9 +17,28 @@
   
   <p class="<%= @product.sale_message %>"><%= @product.sale_message %></p>
 
-  <img src= <%= @product.image %> style="width:225px;height:350px;"> <br><br>
 
+   <% @images.each do |image| %>
+     <img src= "<%= image.url %>" style="width:225px;height:350px;">
+     <br><br>
+   <% end %>
+
+  <%= form_tag '/carted_products', method: :post do  %>
+    <div>
+      <label for="quantity">Quantity</label>
+      <input type="number" name="quantity">
+    </div>
+
+    <%= hidden_field_tag :product_id, @product.id %>
+
+    <input type="submit" value="Add to Cart">
+
+  <% end %>
+  <br>
+
+<% if current_user && current_user.admin %>
   <%= form_tag "/products/#{@product.id}", method: :delete do %>
     <input type="submit" value="Delete Book">
   <% end %>
+<% end %>
 </div>
